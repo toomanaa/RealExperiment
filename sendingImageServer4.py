@@ -21,7 +21,7 @@ s = socket.socket()
 
 # Lets choose one port and start listening on that port
 port = 40000
-port2 = 50000
+
 print("\n Server is listing on port :", port, "\n")
 host = '0.0.0.0'
 # Now we need to bind to the above port at server side
@@ -38,7 +38,8 @@ print("\n Copied file name will be recv.txt at server side\n")
 while True:
     # Now we can establish connection with clien
     conn, addr = s.accept()
-    
+    averageServerUtilization = psutil.cpu_percent()
+    conn.send(str.encode(str(averageServerUtilization)))
     # Send a hello message to client
     msg = "\n\n|---------------------------------|\n Hi Client[IP address: "+ addr[0] + "], \n ֲֳ**Welcome to Server** \n -Server\n|---------------------------------|\n \n\n"    
     conn.send(msg.encode())
