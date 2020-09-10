@@ -11,8 +11,7 @@ import threading
 from imageai.Prediction import ImagePrediction
 import struct
 
-for number in range(5):
-
+for number in range(100):
     prediction = ImagePrediction()
     prediction.setModelTypeAsResNet()
     prediction.setModelPath("resnet50_weights_tf_dim_ordering_tf_kernels.h5")
@@ -45,33 +44,8 @@ for number in range(5):
 # Now we do not know when client will concatct server so server should be listening contineously  
     while True:
         conn, addr = s.accept()
-        averageServerUtilization1  = [x/os.cpu_count()*100 for x in os.getloadavg()][-1]
-        averageServerUtilization1 = packer.pack(averageServerUtilization1)
-        print(averageServerUtilization1)
-        conn.sendall(averageServerUtilization1)
-        time.sleep(5)
-        averageServerUtilization2  = [x/os.cpu_count()*100 for x in os.getloadavg()][-1]
-        averageServerUtilization2 = packer.pack(averageServerUtilization2)
-        print(averageServerUtilization2)
-        conn.sendall(averageServerUtilization2)
-        time.sleep(5)
-        averageServerUtilization3  = [x/os.cpu_count()*100 for x in os.getloadavg()][-1]
-        averageServerUtilization3 = packer.pack(averageServerUtilization3)
-        print(averageServerUtilization3)
-        conn.sendall(averageServerUtilization3)
-        #time.sleep(5)
-        #averageServerUtilization4  = [x/os.cpu_count()*100 for x in os.getloadavg()][-1]
-        #averageServerUtilization4 = packer.pack(averageServerUtilization4)
-        #print(averageServerUtilization4)
-        #conn.sendall(averageServerUtilization4)
-        
-       
 
-        cpuUtilization = str(cpuUtilization)
-        print(cpuUtilization)
-        #conn.send(str.encode(str(averageServerUtilization)))
-
-        # Send a hello message to client
+    # Send a hello message to client
         msg = "\n\n|---------------------------------|\n Hi Client[IP address: "+ addr[0] + "], \n ֲֳ**Welcome to Server** \n -Server\n|---------------------------------|\n \n\n"    
         conn.send(msg.encode())
         # Receive any data from client side
@@ -96,7 +70,7 @@ for number in range(5):
     
         print("\n Server closed the connection \n")
 
-    # Come out from the infinite while loop as the file has been copied from client.
+        # Come out from the infinite while loop as the file has been copied from client.
         break
 
     print(results)
